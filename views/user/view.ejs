@@ -38,7 +38,7 @@
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">
-                  Ali Hassan
+                  <%= user.firstName %> <%= user.lastName %> 
                 </li>
               </ol>
 
@@ -92,6 +92,18 @@
                   <th scope="row">Country</th>
                   <td>
                     <%= user.country %>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Created On</th>
+                  <td>
+                    <%= moment(user.createdAt).format('DD/MM/YYYY hh:mm:ss A') %>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Last Update</th>
+                  <td>
+                    <%= moment(user.updatedAt).format('DD/MM/YYYY hh:mm:ss A') %>
                   </td>
                 </tr>
               </tbody>

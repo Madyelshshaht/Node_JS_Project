@@ -14,13 +14,15 @@
   <title>Edit page</title>
 
   <link rel="stylesheet" href="/css/globalStyle.css" />
-  
+
   <link href="/css/bootstrap.min.css" rel="stylesheet" />
 
 
   <!-- Custom styles for this template -->
   <link href="/css/sidebars.css" rel="stylesheet" />
   <link rel="stylesheet" href="/css/myStyle.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -39,54 +41,63 @@
             <nav class="px-2 mt-4 d-flex flex-wrap justify-content-between" aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Ali Hassan</li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <%= user.firstName %>
+                    <%= user.lastName %>
+                </li>
               </ol>
 
 
-              <p class="me-md-5"> <span class="fw-medium fs-6">Id :</span> 6487021520bcf1af6319484c</p>
+              <p class="me-md-5"> <span class="fw-medium fs-6">Id :</span>
+                <%= user._id %>
+              </p>
             </nav>
 
 
-
-
-
-
-
-
-            <form class="mx-0 row gx-3 gy-4 mt-2">
+            <form class="mx-0 row gx-3 gy-4 mt-2" action="/user/edit/<%= user._id %>?_method=PUT" method="post">
               <div class="col-md-6">
                 <label for="inputfirstName4" class="form-label">First Name:</label>
-                <input placeholder="Ali..." type="text" class="form-control" id="inputfirstName4" />
+                <input placeholder="Ali..." type="text" class="form-control" id="inputfirstName4"
+                  value="<%= user.firstName %>" name="firstName" />
               </div>
               <div class="col-md-6">
                 <label for="inputlastName4" class="form-label">Last Name:</label>
-                <input placeholder="Hassan..." type="text" class="form-control" id="inputlastName4" />
+                <input placeholder="Hassan..." type="text" class="form-control" id="inputlastName4"
+                  value="<%= user.lastName %>" name="lastName" />
               </div>
 
               <div class="col-md-6">
                 <label for="inputemail4" class="form-label">Email:</label>
-                <input placeholder="ali@gmail.com" type="email" class="form-control" id="inputemail4" />
+                <input placeholder="ali@gmail.com" type="email" class="form-control" id="inputemail4"
+                  value="<%= user.email %>" name="email" />
               </div>
               <div class="col-md-6">
                 <label for="inputtele4" class="form-label">Telephone:</label>
-                <input placeholder="011987899" type="number" class="form-control" id="inputtele4" />
+                <input placeholder="011987899" type="number" class="form-control" id="inputtele4"
+                  value="<%= user.phone %>" name="phone" />
               </div>
 
               <div>
                 <div class="col-md-6">
                   <label for="inputage4" class="form-label">Age:</label>
-                  <input placeholder="Your Age: ..." type="number" class="form-control" id="inputage4" />
+                  <input placeholder="Your Age: ..." type="number" class="form-control" id="inputage4"
+                    value="<%= user.age %>" name="age" />
                 </div>
               </div>
 
               <div>
                 <div class="col-md-6">
                   <label for="inputCountry" class="form-label">Country:</label>
-                  <select id="inputCountry" class="form-select">
+                  <select id="inputCountry" class="form-select" name="country">
                     <option selected hidden disabled>Choose here ...</option>
 
-                    <option>Morocco</option>
-                    <option>Egypt</option>
+                    <% country_list.map((coun)=> { %>
+                      <option value="<%= coun %>" <%=coun===user.country ? "selected" : "" %>
+                        >
+                        <%= coun %>
+                      </option>
+                      <% }) %>
+
                   </select>
                 </div>
               </div>
@@ -94,10 +105,10 @@
               <div>
                 <div class="col-md-6">
                   <label for="inputGender" class="form-label">Gender:</label>
-                  <select id="inputGender" class="form-select">
+                  <select id="inputGender" class="form-select" name="gender">
                     <option selected hidden disabled>Choose here ...</option>
-                    <option>Male</option>
-                    <option>Female</option>
+                    <option value="Male" <%=user.gender==="Male" ? "selected" : "" %> >Male</option>
+                    <option value="Female" <%=user.gender==="Female" ? "selected" : "" %> >Female</option>
                   </select>
                 </div>
               </div>
@@ -114,31 +125,13 @@
         </section>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">
-                  Delete Customer
-                </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">Are you sure you want to continue delete the customer?</div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                  Close
-                </button>
-                <button type="button" class="btn btn-danger">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <%- include('../Components/DeleteModal.ejs', {user: user}) %>
+
     </main>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/sidebars.js"></script>
     <script src="/js/main.js"></script>
+
 </body>
 
 </html>

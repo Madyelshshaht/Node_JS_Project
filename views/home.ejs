@@ -21,6 +21,8 @@
   <!-- Custom styles for this template -->
   <link href="/css/sidebars.css" rel="stylesheet" />
   <link rel="stylesheet" href="/css/myStyle.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -37,90 +39,121 @@
         <section class="w-100">
           <%- include('./Components/Navbar.ejs') %>
 
-            <table style="width: 99%" class="text-center mx-auto table mt-5 table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Full Name</th>
-                  <th scope="col">Gender</th>
-                  <th scope="col">Country</th>
-                  <th scope="col">Age</th>
-                  <th scope="col">Phone</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-
-              <tbody>
-
-
-                <% users.map((user, index)=> { %>
+            <% if (users.length > 0) { %>
+              <table style="width: 99%" class="text-center mx-auto table mt-5 table-striped table-bordered">
+                <thead>
                   <tr>
-                    <th scope="row">
-                      <%= index+1 %>
-                    </th>
-                    <td>
-                      <%= user.firstName %>
-                        <%= user.lastName %>
-                    </td>
-                    <td>
-                      <%= user.gender %>
-                    </td>
-                    <td>
-                      <%= user.country %>
-                    </td>
-                    <td>
-                      <%= user.age %>
-                    </td>
-                    <td>
-                      <%= user.phone %>
-                    </td>
-                    <td>
-                      <a data-bs-toggle="tooltip" data-bs-title="View details" data-bs-placement="top"
-                        class="btn btn-primary btn-sm" href="/user/view/<%= user._id %>"><i class="bi bi-eye"></i></a>
-
-                      <a data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"
-                        class="btn btn-primary btn-sm" href="./user/edit.html">
-                        <i class="bi bi-pencil"></i>
-                      </a>
-                      <button data-bs-toggle="tooltip" data-bs-title="Delete user" data-bs-placement="top"
-                        class="btn btn-danger btn-sm">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                    </td>
+                    <th scope="col">#</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Last Update</th>
+                    <th scope="col">Action</th>
                   </tr>
+                </thead>
 
-                  <% }) %>
+                <tbody>
 
-                    <!-- <tr>
-                      <th scope="row">1</th>
-                      <td>Ali Hassan </td>
-                      <td>Male </td>
-                      <td>Egypt</td>
-                      <td>30</td>
-                      <td>1 days ago </td>
+
+                  <% users.map((user, index)=> { %>
+                    <tr>
+                      <th scope="row">
+                        <%= index+1 %>
+                      </th>
+                      <td>
+                        <%= user.firstName %>
+                          <%= user.lastName %>
+                      </td>
+                      <td>
+                        <%= user.gender %>
+                      </td>
+                      <td>
+                        <%= user.country %>
+                      </td>
+                      <td>
+                        <%= user.age %>
+                      </td>
+                      <td>
+                        <!-- <%= new Date(user.updatedAt).toLocaleString('en-GB', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        hour12: true,
+                        minute: '2-digit',
+                        second: '2-digit'
+                      }) %> -->
+
+                        <%= moment(user.updatedAt).format('DD/MM/YYYY hh:mm:ss A') %>
+
+                      </td>
                       <td>
                         <a data-bs-toggle="tooltip" data-bs-title="View details" data-bs-placement="top"
-                          class="btn btn-primary btn-sm" href="./user/view.html"><i class="bi bi-eye"></i></a>
+                          class="btn btn-primary btn-sm" href="/user/view/<%= user._id %>"><i class="bi bi-eye"></i></a>
 
                         <a data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"
-                          class="btn btn-primary btn-sm" href="./user/edit.html">
+                          class="btn btn-primary btn-sm" href="./user/edit/<%= user._id %>">
                           <i class="bi bi-pencil"></i>
                         </a>
+
                         <button data-bs-toggle="tooltip" data-bs-title="Delete user" data-bs-placement="top"
-                          class="btn btn-danger btn-sm">
+                          class="btn btn-danger btn-sm" onclick="deleteUser('<%= user._id %>')">
                           <i class="bi bi-trash"></i>
                         </button>
                       </td>
-                    </tr> -->
+                    </tr>
+                    <% }) %>
 
-              </tbody>
-            </table>
+
+                </tbody>
+              </table>
+              <% } else { %>
+                <div class="text-center py-5 my-5 text-danger ">
+                  <h1> No data Available !! </h1>
+                </div>
+                <% } %>
+
+
+
+
         </section>
     </main>
 
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/sidebars.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/js/deleteUser.js"></script>
+    
+    <script>
+
+      const success = "<%= success %>";
+      const error = "<%= error %>";
+
+      if (success && success !== "null") {
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: success,
+          timer: 1500,
+          showConfirmButton: false
+        });
+
+        window.history.replaceState({}, document.title, "/");
+      }
+
+      if (error && error !== "null") {
+        Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: error
+        });
+
+        window.history.replaceState({}, document.title, "/");
+      }
+
+    </script>
+
 
 </body>
 
