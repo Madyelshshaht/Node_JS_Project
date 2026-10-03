@@ -132,10 +132,14 @@ app.use(AllRoutes)
 
 
 
-mongoose.connect( process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI)
     .then(
         () => {
             // app.listen(port, () => { console.log(`DB Connected Successfully http://localhost:${port}`); });
             console.log("DB Connected Successfully");
         }
     ).catch((err) => { console.log(err); });
+
+
+
+module.exports = app;
