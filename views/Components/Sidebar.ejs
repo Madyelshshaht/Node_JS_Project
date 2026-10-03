@@ -13,7 +13,7 @@
     <ul class="nav nav-pills flex-column mb-auto">
 
         <li class="nav-item">
-            <a href="/" class="nav-link  text-white <%= page === "home" ? "active" : null %>" aria-current="page" >
+            <a href="/" class="nav-link  text-white <%= page === " home" ? "active" : null %>" aria-current="page" >
                 <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#home" />
                 </svg>
@@ -22,7 +22,7 @@
         </li>
 
         <li>
-            <a href="../../user/add.html" class="nav-link text-white <%= page === "add" ? "active" : null %>" >
+            <a href="../../user/add.html" class="nav-link text-white <%= page === " add" ? "active" : null %>" >
                 <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#people-circle" />
                 </svg>
@@ -44,7 +44,11 @@
             <li>
                 <hr class="dropdown-divider" />
             </li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li>
+                <a href="/logout" class="dropdown-item">
+                    Logout
+                </a>
+            </li>
         </ul>
     </div>
 </div>

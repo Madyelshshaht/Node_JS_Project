@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const moment = require('moment');
+const bcrypt = require("bcryptjs");
+const LoginData = require('../models/loginSchema');
 
 // Model Schema
 const UserData = require('../models/UserSchema');
-const { getUsers, getAddPage, getEditPage, getViewPage, addUser, searchUser, editUser, deleteUser } = require('../controllers/userController');
+const { getUsers, getAddPage, getEditPage, getViewPage, addUser, searchUser, editUser, deleteUser, get_login_page, get_register_page, get_profile_page, logout, LoginUser, RegisterUser } = require('../controllers/userController');
 
 
 
@@ -35,6 +37,18 @@ router.delete("/user/delete/:id", deleteUser);
 
 
 
+// ====================== Login ============================== //
 
+router.get("/login", get_login_page)
+router.get("/register", get_register_page);
+router.get("/profile", get_profile_page);
+router.get("/logout", logout);
+
+
+// Register
+router.post("/register", RegisterUser)
+
+
+router.post("/login", LoginUser);
 
 module.exports = router;

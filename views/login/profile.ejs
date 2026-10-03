@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f5f7fb;
+        }
+
+        .profile-box {
+            width: 400px;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .email {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .logout-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #e53935;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .logout-btn:hover {
+            background: #c62828;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-box">
+
+        <img class="profile-image" src="<%= user.photo %>" alt="Profile">
+
+        <h1>
+            Welcome <%= user.name %>
+        </h1>
+
+        <p class="email">
+            <%= user.email %>
+        </p>
+
+        <a href="/logout" class="logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+</body>
+
+</html>
